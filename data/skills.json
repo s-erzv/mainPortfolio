@@ -1,0 +1,62 @@
+[
+    {
+      "name": "HTML",
+      "icon": "/HTML.png"
+    },
+    {
+      "name": "CSS",
+      "icon": "/css.png"
+    },
+    {
+      "name": "JavaScript",
+      "icon": "/js.png"
+    },
+    {
+      "name": "Python",
+      "icon": "/python.png"
+    },
+    {
+      "name": "C",
+      "icon": "/C.png"
+    },
+    {
+      "name": "Java",
+      "icon": "/Java.png"
+    },
+    {
+      "name": "MySQL",
+      "icon": "/mysql.png"
+    },
+    {
+      "name": "R",
+      "icon": "/R.png"
+    },
+    {
+      "name": "Laravel",
+      "icon": "/laravel.png"
+    },
+    {
+      "name": "Tailwind",
+      "icon": "/tailwind.png"
+    },
+    {
+      "name": "GitHub",
+      "icon": "/github.png"
+    },
+    {
+      "name": "WordPress",
+      "icon": "/wordpress.png"
+    },
+    {
+      "name": "Figma",
+      "icon": "/figma.png"
+    },
+    {
+      "name": "Canva",
+      "icon": "/canva.png"
+    },
+    {
+      "name": "InkScape",
+      "icon": "/inkscape.png"
+    }
+  ]
