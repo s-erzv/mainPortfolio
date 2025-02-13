@@ -7,8 +7,8 @@ type Props = {
 
 const SectionHeader = ({plaintext, highlightText}: Props) => {
   return (
-    <h2 className='text-[22px] md:text-[33px] px-20 text-center font-semibold'>
-        {plaintext}{""} <span className='highlight-p px-2 whitespace-normal'>{highlightText}</span>
+    <h2 className='w-full text-[16px] md:text-[33px] px-0 md:px-20 text-center font-semibold'>
+        {plaintext}{""} <span className='md:highlight-l highlight-m px-2 whitespace-normal'>{highlightText}</span>
     </h2>
   );
 };

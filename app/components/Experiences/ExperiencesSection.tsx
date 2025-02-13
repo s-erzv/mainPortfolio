@@ -7,7 +7,7 @@ import SectionContainer from "../Section/SectionContainer";
 
 const ExperiencesSection: React.FC = () => {
   return (
-    <SectionContainer className="py-10" id="experience">
+    <SectionContainer className="py-10 z-10" id="experience">
       <div className="max-w-5xl mx-auto px-5">
       <SectionHeader plaintext='My Prior' highlightText='Work Experience' />
         <div className="space-y-8 pt-12">
@@ -31,12 +31,12 @@ const ExperiencesSection: React.FC = () => {
                 )}
 
             <div className="flex-1">
-              <h3 className="text-xl font-semibold">{exp.role}</h3>
-              <div className="flex justify-between items-center">
-                <p className="text-foreground">{exp.company}</p>
-                <p className="text-sm text-foreground">{exp.dates}</p>
+              <h3 className="text-sm md:text-xl font-semibold">{exp.role}</h3>
+              <div className="flex flex-wrap justify-between items-center">
+                <p className="text-xs md:text-sm text-foreground">{exp.company}</p>
+                <p className="text-xs md:text-sm text-foreground">{exp.dates}</p>
               </div>
-              <ul className="text-sm text-foreground pt-3">
+              <ul className="text-[10px] md:text-sm text-foreground pt-3 md:text-left text-justify">
                 {exp.description.map((desc, i) => (
                   <li key={i}>{desc}</li>
                 ))}

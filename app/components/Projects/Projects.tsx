@@ -26,7 +26,7 @@ const Projects = () => {
 
   return (
     <SectionContainer id="projects">
-      <div className="mx-auto max-w-5xl px-5">
+      <div className="mx-auto max-w-5xl md:px-5 px-2">
         <SectionHeader plaintext="Some of my" highlightText="Best Work" />
 
         {/* Carousel Container */}
@@ -39,27 +39,27 @@ const Projects = () => {
               </div>
             ))}
           </div>
-
           </div>
         </div>
 
 
         {/* Navigation Buttons */}
-        <button
-          className={`absolute left-20 top-1/2 -translate-y-1/2 bg-primary px-3 py-2 rounded-full text-white ${!canScrollPrev && "opacity-50"}`}
-          onClick={() => emblaApi && emblaApi.scrollPrev()}
-          disabled={!canScrollPrev}
-        >
-          ◀
-        </button>
+       <button
+        className={`hidden md:block absolute top-4 z-10 left-1/2 -translate-x-1/2 bg-primary px-3 py-2 rounded-full text-white md:left-20 md:top-1/2 md:-translate-y-1/2 ${!canScrollPrev && "opacity-50"}`}
+        onClick={() => emblaApi && emblaApi.scrollPrev()}
+        disabled={!canScrollPrev}
+      >
+        ◀
+      </button>
 
-        <button
-          className={`absolute right-20 top-1/2 -translate-y-1/2 bg-primary px-3 py-2 rounded-full text-white ${!canScrollNext && "opacity-50"}`}
-          onClick={() => emblaApi && emblaApi.scrollNext()}
-          disabled={!canScrollNext}
-        >
-          ▶
-        </button>
+      <button
+        className={`hidden md:block absolute top-4 z-10 right-1/2 translate-x-1/2 bg-primary px-3 py-2 rounded-full text-white md:right-20 md:top-1/2 md:-translate-y-1/2 ${!canScrollNext && "opacity-50"}`}
+        onClick={() => emblaApi && emblaApi.scrollNext()}
+        disabled={!canScrollNext}
+      >
+        ▶
+      </button>
+
       </div>
     </SectionContainer>
   );

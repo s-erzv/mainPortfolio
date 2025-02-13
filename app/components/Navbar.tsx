@@ -86,7 +86,7 @@ const Navbar = () => {
 
                 {/* Burger Menu (Mobile) */}
                 <button onClick={() => setIsOpen((prevVal) => !prevVal)}>
-                    <Image className="block md:hidden" src="/menu_icon_dark.svg" alt="menu icon dark" height={10} width={10}/>
+                    <Image className="block md:hidden" src="/menu_icon_dark.svg" alt="menu icon dark" height={15} width={15}/>
                 </button>
             </nav>
 

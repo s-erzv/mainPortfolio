@@ -19,7 +19,7 @@ const Contact = () => {
                     </div>
 
                     {/* Social Icons */}
-                    <div className="flex gap-4">
+                    <div className="flex gap-0 md:gap-4">
                         <a href="https://instagram.com/s.erzv">
                             <Image src="/ig-light.png" alt="Instagram" className="w-8 h-8 dark:hidden transition-all hover:scale-110 " height={8} width={8} />
                             <Image src="/ig-dark.png" alt="Instagram Dark" className="w-8 h-8 hidden dark:block transition-all hover:scale-110 " height={8} width={8} />

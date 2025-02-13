@@ -4,10 +4,10 @@ const TopBackground = () => {
   return <>
   <div className="absolute w-full max-w-[360px] md:max-w-screen-lg h-[285px] md:h-[656px] top-[128px] md:top-11 left-1/2 -translate-x-1/2 md:overflow-x-hidden z-10">
     <div className='w-full h-full relative'>
-        <div className='circle-icon top-[10px] left-[171px] md:top-48 md:left-[520px]'>
+        <div className='circle-icon top-[-30px] left-[20px] md:top-48 md:left-[520px]'>
             <img src="/rocket_icon.svg" alt="Rocket Icon" width={23} height={23}/>
         </div>
-        <div className='circle-icon top-[162px] left-[-90px] md:top-20 md:left-0'>
+        <div className='circle-icon top-[370px] left-[20px] md:top-20 md:left-0'>
             <img src="/bracket_icon.svg" alt="bracket Icon" width={23} height={23}/>
         </div>
         <div className='hidden md:circle-icon top-80 left-0 md:top-[500px] md:right-[450px]'>
@@ -16,7 +16,7 @@ const TopBackground = () => {
         <div className='hidden md:circle-icon top-20 right-[-60px] md:top-[300px] md:right-0'>
             <img src="/electricity_icon.svg" alt="electricity Icon" width={23} height={23}/>
         </div>
-        <div className='circle-icon top-[440px] right-[-60px] md:top-[450px] md:right-[480px]'>
+        <div className='circle-icon top-[160px] right-3 md:top-[450px] md:right-[480px]'>
             <img src="/merge_icon.svg" alt="merge Icon" width={23} height={23}/>
         </div>
         <div className='hidden md:circle-icon top-60 right-[60px] md:top-[70px] md:right-[60px]'>
@@ -29,7 +29,6 @@ const TopBackground = () => {
   <div className="absolute top-0 w-full h-[795px] bg-repeat-x bg-[url('/bg_top_light.png')] bg-[auto_auto] dark:hidden block opacity-20 z-2"/>
   <div className="absolute top-0 w-full h-[795px] bg-repeat-x bg-[url('/bg_top_dark.png')] bg-[auto_auto] hidden dark:block opacity-20 z-2"/>
   
-
   
   </>
 };
