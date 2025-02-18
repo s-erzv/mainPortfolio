@@ -1,3 +1,7 @@
+### Personal Portfolio
+
+Welcome to my personal portfolio repository! This project is built using Next.js, Tailwind CSS, and TypeScript to create a modern, responsive, and performant web application showcasing my skills, projects, and experiences.
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
