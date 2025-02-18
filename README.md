@@ -1,4 +1,4 @@
-### Personal Portfolio
+# Personal Portfolio
 
 Welcome to my personal portfolio repository! This project is built using Next.js, Tailwind CSS, and TypeScript to create a modern, responsive, and performant web application showcasing my skills, projects, and experiences.
 
