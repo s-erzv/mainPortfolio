@@ -16,7 +16,7 @@ const TopBackground = () => {
         <div className='hidden md:circle-icon top-20 right-[-60px] md:top-[300px] md:right-0'>
             <img src="/electricity_icon.svg" alt="electricity Icon" width={23} height={23}/>
         </div>
-        <div className='circle-icon top-[160px] right-3 md:top-[450px] md:right-[480px]'>
+        <div className='hidden circle-icon top-[160px] right-3 md:top-[450px] md:right-[480px]'>
             <img src="/merge_icon.svg" alt="merge Icon" width={23} height={23}/>
         </div>
         <div className='hidden md:circle-icon top-60 right-[60px] md:top-[70px] md:right-[60px]'>
