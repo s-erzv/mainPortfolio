@@ -1,3 +1,19 @@
+# Personal Portfolio
+
+Welcome to my personal portfolio repository! This project is built using Next.js, Tailwind CSS, and TypeScript to create a modern, responsive, and performant web application showcasing my skills, projects, and experiences.
+
+## Figma Prototype
+
+You can preview the design and user flow of this project through the Figma prototype. Click the link below to explore the interactive mockup:
+
+[Figma Prototype](https://www.figma.com/proto/e6Pip21AYgD1fE6a9pYS1P/serzv?node-id=28-303&t=UBUqKjSnplZcpHop-1&scaling=scale-down&content-scaling=fixed&page-id=0%3A1&starting-point-node-id=47%3A2&show-proto-sidebar=1)
+
+## Live Demo
+
+You can view the deployed version of this portfolio at the following link:
+
+🔗 [Live Demo on Vercel](https://main-portfolio-three-beta.vercel.app/)
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
