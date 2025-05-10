@@ -4,7 +4,10 @@ import SectionContainer from '../Section/SectionContainer';
 import SectionHeader from '../Section/SectionHeader';
 import Skill from './Skill';
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 2cfa7af7be156be126e4d48873e7b8caa6e5f617
 const Skills = () => {
   return (
     <SectionContainer id="skills" className="relative">

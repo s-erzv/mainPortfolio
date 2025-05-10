@@ -5,14 +5,24 @@
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
+<<<<<<< HEAD
     "start": " next start",
     "lint": "next lint",
     "export": "next export"
+=======
+    "start": " next start", 
+    "lint": "next lint",
+  "export": "next export"
+>>>>>>> 2cfa7af7be156be126e4d48873e7b8caa6e5f617
   },
   "dependencies": {
     "classnames": "^2.5.1",
     "embla-carousel-react": "^8.5.2",
+<<<<<<< HEAD
     "framer-motion": "^12.10.5",
+=======
+    "framer-motion": "^12.4.1",
+>>>>>>> 2cfa7af7be156be126e4d48873e7b8caa6e5f617
     "next": "15.1.6",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
