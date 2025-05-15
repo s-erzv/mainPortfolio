@@ -76,12 +76,8 @@ const Hero = () => {
         variants={imageVariant}
       >
         <div className="sm:hidden relative md:w-auto md:flex justify-start mt-6 md:mt-0">
-      <img src="/yellow.png" alt="" height={430} width={372} className='hidden md:block w-[372px] h-[430px] absolute right-0 -z-10 dark:hidden'/>
-          <img src="/blue.png" alt="" height={430} width={372} className='hidden md:block w-[372px] h-[430px] absolute right-0 -z-10 dark:hidden'/>
-          <img src="/mee.png" alt="" height={417} width={357} className='hidden md:block min-w-[357px] h-[417px] z-10 mr-[7.7px] my-[6.5px] dark:hidden'/>
-          <img src="/purple.png" alt="" height={430} width={372} className='hidden dark:md:block w-[372px] h-[430px] absolute right-0 -z-10'/>
-          <img src="/magenta.png" alt="" height={430} width={372} className='hidden dark:md:block w-[372px] h-[430px] absolute right-0 -z-10'/>
-          <img src="/mepurple.png" alt="" height={417} width={357} className='hidden dark:md:block min-w-[357px] h-[417px] z-10 mr-[7.7px] my-[6.5px]'/>
+          <img src="/test.svg" alt="" height={417} width={357} className='hidden md:block min-w-[357px] h-[417px] z-10 mr-[7.7px] my-[6.5px] dark:hidden'/>
+          <img src="/testdark.svg" alt="" height={417} width={357} className='hidden dark:md:block min-w-[357px] h-[417px] z-10 mr-[7.7px] my-[6.5px]'/>
       </div>
       </motion.div>
     </section>
