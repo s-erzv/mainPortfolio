@@ -48,7 +48,7 @@ const Navbar = () => {
                 
                 {/* Logo Section */}
                 <div className="flex items-center gap-2">
-                    <Image src="/logo.png" alt="logo" className="w-8 h-8 bg-white p-1 rounded-full" height={8} width={8} />
+                    <Image src="/logo.svg" alt="logo" className="w-8 h-8 bg-white p-1 rounded-full" height={8} width={8} />
                     <span className="text-lg font-semibold text-white">s.erzv</span>
                 </div>
 

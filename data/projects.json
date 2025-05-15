@@ -108,5 +108,16 @@
         "description": "Twilio Chess lets players play chess via WhatsApp using Twilio API.",
         "languageIcons": ["/python.png"]
 
+    },
+    {
+        "thumbnail": "/Wedding.png",
+        "title": "Project Digital Wedding Invitation Website",
+        "link": {
+            "label": "Live Demo",
+            "url": "https://wedding-invitation-rho-six.vercel.app/"
+        },
+        "description": "A digital wedding invitation website with RSVP and event details using Next.js and tailwind.",
+        "languageIcons": ["/nextjs.png", "/tailwind.png", "/figma.png"]
+
     }
 ]
