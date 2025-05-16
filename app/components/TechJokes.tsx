@@ -12,8 +12,10 @@ const TechJokes = () => {
       const data = await response.json();
       setJoke(data.joke);
     } catch (error) {
-      setJoke("Oops! Failed to fetch a joke.");
+    console.error(error); // agar error tidak dianggap unused
+    setJoke("Oops! Failed to fetch a joke.");
     }
+
     setLoading(false);
   };
 
