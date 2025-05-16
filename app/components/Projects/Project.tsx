@@ -16,7 +16,7 @@ const Project = ({ thumbnail, title, link, description, languageIcons }: Project
         <h3 className="font-semibold text-sm md:text-[22px]">{title}</h3>
         <p className="line-clamp-2 text-xs md:text-base">{description}</p>
         <div className="flex flex-wrap justify-between">
-          <a href={link.url} className="my-2 bg-primary hover:bg-secondary text-foreground max-w-[100px] p-2 hover:underline rounded-lg text-xs md:text-sm md:text-base" target="_blank" rel="noopener noreferrer">
+          <a href={link.url} className="my-2 bg-primary hover:bg-secondary text-foreground max-w-[100px] p-2 hover:underline rounded-lg text-xs  md:text-base" target="_blank" rel="noopener noreferrer">
             {link.label}
           </a>
           <div className="flex flex-row gap-[10px]">
