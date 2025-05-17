@@ -119,5 +119,27 @@
         "description": "A digital wedding invitation website with RSVP and event details using Next.js and tailwind.",
         "languageIcons": ["/nextjs.png", "/tailwind.png", "/figma.png"]
 
+    },
+    {
+        "thumbnail": "/bibu.png",
+        "title": "Project Comapny Profile for Bibu AMDK",
+        "link": {
+            "label": "Live Demo",
+            "url": "https://github.com/s-erzv/companyProfileBibuAMDK"
+        },
+        "description": "A company profile website for Bibu AMDK, showcasing products and services.",
+        "languageIcons": ["/HTML.png","/css.png", "js.png"]
+
+    },
+    {
+        "thumbnail": "/aiml-gdgoc.png",
+        "title": "Project AI & ML GDGOC Student Performance Prediction",
+        "link": {
+            "label": "Live Demo",
+            "url": "#"
+        },
+        "description": "A project that predicts student performance using machine learning.",
+        "languageIcons": ["/python.png"]
+
     }
 ]
