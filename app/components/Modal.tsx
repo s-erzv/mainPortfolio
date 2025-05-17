@@ -1,6 +1,6 @@
 import React from 'react';
 import { X } from 'lucide-react';
-import Skill from '../../types/Skill';
+import type {Skill} from '../../types/Skill';
 
 interface ModalProps {
   skill: Skill;

@@ -4,7 +4,8 @@ import React from 'react';
 import skills from '@/data/skills.json';
 import SectionContainer from '../Section/SectionContainer';
 import SectionHeader from '../Section/SectionHeader';
-import Skill from '@/types/Skill';
+import type { Skill } from '@/types/Skill';
+import SkillCard from '@/types/Skill';
 import Modal from '../Modal';
 
 const Skills = () => {
@@ -24,7 +25,7 @@ const Skills = () => {
         <div className='card cursor-pointer mt-12 w-full px-4 sm:px-8 py-6 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 md:gap-6 justify-center'>
           {skills.map((skill, id) => (
             <div key={id} onClick={() => handleSkillClick(skill)} className='transition-all duration-500 ease-in-out hover:scale-110'>
-              <Skill name={skill.name} icon={skill.icon} />
+              <SkillCard name={skill.name} icon={skill.icon} description={skill.description} />
             </div>
           ))}
         </div>
