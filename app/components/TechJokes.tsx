@@ -24,7 +24,7 @@ const TechJokes = () => {
   }, []);
 
   return (
-    <section className="mx-10 bg-[#A9D1F6] dark:bg-[#463359] py-10 px-5 text-center rounded-2xl shadow-md max-w-4xl z-20">
+    <section className="mx-10 bg-[#A9D1F6] dark:bg-[#463359] py-10 px-5 text-center rounded-2xl shadow-md max-w-[1000px] z-20">
       <h2 className="font-bold text-[25px] md:text-[32px] text-transparent bg-clip-text bg-gradient-to-r dark:from-secondary dark:to-primary from-[#323DC7] to-[#A9D1F6]">Tech Joke of the Moment</h2>
       {loading ? (
         <p className="text-gray-500 italic">Loading...</p>
