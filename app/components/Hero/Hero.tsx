@@ -52,7 +52,7 @@ const Hero: React.FC = () => {
           <GradientText
             colors={gradientColors}
             animationSpeed={3}
-            showBorder={false}
+            // showBorder={false}
             className="py-1"
           >
             Hello I&apos;m Sarah, I&apos;m a
