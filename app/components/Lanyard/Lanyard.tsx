@@ -17,7 +17,7 @@ import {
   useRopeJoint,
   useSphericalJoint,
   RigidBodyProps,
-  RigidBodyApi,
+  RapierRigidBody,
 } from "@react-three/rapier";
 import { MeshLineGeometry, MeshLineMaterial } from "meshline";
 import * as THREE from "three";
@@ -124,11 +124,11 @@ function Band({ maxSpeed = 50, minSpeed = 0, isDark }: BandProps) {
     : "/assets/lanyard/lanyard.png";
 
   const band = useRef<THREE.Mesh<MeshLineGeometry, MeshLineMaterial>>(null);
-  const fixed = useRef<RigidBodyApi>(null);
-  const j1 = useRef<RigidBodyApi>(null);
-  const j2 = useRef<RigidBodyApi>(null);
-  const j3 = useRef<RigidBodyApi>(null);
-  const card = useRef<RigidBodyApi>(null);
+  const fixed = useRef<RapierRigidBody>(null);
+  const j1 = useRef<RapierRigidBody>(null);
+  const j2 = useRef<RapierRigidBody>(null);
+  const j3 = useRef<RapierRigidBody>(null);
+  const card = useRef<RapierRigidBody>(null);
 
   const vec = new THREE.Vector3();
   const ang = new THREE.Vector3();
@@ -143,7 +143,7 @@ function Band({ maxSpeed = 50, minSpeed = 0, isDark }: BandProps) {
     linearDamping: 4,
   };
 
-  const { nodes, materials } = useGLTF(cardGLB) as GLTFResult;
+  const { nodes, materials } = useGLTF(cardGLB) as unknown as GLTFResult;
   const texture = useTexture(lanyardTexture);
 
   const [curve] = useState(
@@ -197,7 +197,7 @@ function Band({ maxSpeed = 50, minSpeed = 0, isDark }: BandProps) {
       dir.copy(vec).sub(state.camera.position).normalize();
       vec.add(dir.multiplyScalar(state.camera.position.length()));
       [card, j1, j2, j3, fixed].forEach(
-        (ref: RefObject<RigidBodyApi>) => ref.current?.wakeUp()
+        (ref: RefObject<RapierRigidBody>) => ref.current?.wakeUp()
       );
       card.current?.setNextKinematicTranslation({
         x: vec.x - dragged.x,
@@ -207,7 +207,7 @@ function Band({ maxSpeed = 50, minSpeed = 0, isDark }: BandProps) {
     }
     if (fixed.current) {
       [j1, j2].forEach(
-        (ref: RefObject<RigidBodyApi>) => {
+        (ref: RefObject<RapierRigidBody>) => {
         if (!ref.current.lerped)
           ref.current.lerped = new THREE.Vector3().copy(
             ref.current.translation()
