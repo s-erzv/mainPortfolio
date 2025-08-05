@@ -14,7 +14,6 @@ const Sections = () => {
       <Skills />
       <Projects />
       <ExperiencesSection />
-      {/* <TechJokes /> */}
       <Contact />
     </main>
   );

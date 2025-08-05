@@ -23,7 +23,7 @@ import {
 import { MeshLineGeometry, MeshLineMaterial } from "meshline";
 import * as THREE from "three";
 import { useTheme } from "next-themes";
-import { Mesh, MeshPhysicalMaterial, MeshStandardMaterial } from "three";
+import { MeshPhysicalMaterial, MeshStandardMaterial } from "three";
 
 extend({ MeshLineGeometry, MeshLineMaterial });
 

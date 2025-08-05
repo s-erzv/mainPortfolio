@@ -14,7 +14,7 @@ export default function GradientText({
   className = '',
   colors = ['#ffaa40', '#9c40ff', '#ffaa40'],
   animationSpeed = 8,
-  showBorder = false,
+  // showBorder = false,
 }: GradientTextProps) {
   const gradientStyle = {
     backgroundImage: `linear-gradient(270deg, ${colors.join(', ')})`,
