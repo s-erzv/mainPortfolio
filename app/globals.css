@@ -52,4 +52,6 @@ body {
   .card {
     @apply bg-card rounded-lg card-shadow border-primary border-2;
   }
+ 
+  
 }

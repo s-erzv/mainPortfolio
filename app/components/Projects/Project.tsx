@@ -1,4 +1,6 @@
+// src/components/Projects/Project.tsx
 import React from "react";
+import SpotlightCard from "../SpotlightCard/SpotlightCard";
 
 type ProjectProps = {
   thumbnail: string;
@@ -8,25 +10,28 @@ type ProjectProps = {
   languageIcons: string[];
 };
 
-const Project = ({ thumbnail, title, link, description, languageIcons }: ProjectProps) => {
+const Project = ({ thumbnail, title, description, languageIcons }: ProjectProps) => {
   return (
-    <div className="card flex flex-col items-stretch w-full md:min-w-[450px] md:max-w-[500px] p-5 md:p-[18px] overflow-hidden">
-      <img src={thumbnail} alt={`${title} thumbnail`} className="w-full h-full object-cover rounded-lg pb-4" />
-      <div className="flex flex-col gap-[0px]">
-        <h3 className="font-semibold text-sm md:text-[22px]">{title}</h3>
-        <p className="line-clamp-2 text-xs md:text-base">{description}</p>
-        <div className="flex flex-wrap justify-between">
-          <a href={link.url} className="my-2 bg-primary hover:bg-secondary text-foreground max-w-[100px] p-2 hover:underline rounded-lg text-xs  md:text-base" target="_blank" rel="noopener noreferrer">
-            {link.label}
-          </a>
-          <div className="flex flex-row gap-[10px]">
+    <SpotlightCard className="custom-spotlight-card h-full flex flex-col" spotlightColor="rgba(0, 229, 255, 0.2)">
+      <div className="relative w-full aspect-video rounded-lg overflow-hidden pb-4">
+        <img
+          src={thumbnail}
+          alt={`${title} thumbnail`}
+          className="absolute inset-0 w-full h-full object-cover"
+        />
+      </div>
+      <div className="flex flex-col gap-[0px] flex-grow">
+        <h3 className="font-semibold text-sm md:text-[22px] mt-4">{title}</h3>
+        <p className="line-clamp-2 text-xs md:text-base flex-grow">{description}</p>
+        <div className="flex flex-wrap justify-between mt-auto">
+          <div className="flex flex-row gap-[10px] items-center">
             {languageIcons.map((icon, iconId) => (
-              <img src={icon} alt="language icon" key={iconId} className="w-[30px] md:w-35 object-contain"/>
+              <img src={icon} alt="language icon" key={iconId} className="w-[30px] md:w-35 object-contain mt-1"/>
             ))}
           </div>
         </div>
       </div>
-    </div>
+    </SpotlightCard>
   );
 };
 

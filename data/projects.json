@@ -1,145 +1,122 @@
 [
-    {
-        "thumbnail": "/tech edify app.png",
-        "title": "Mobile App Android-Based Informatics Learning",
-        "link": {
-            "label": "Live Demo",
-            "url": "https://serzv.my.id/TechEdify/"
-        },
-        "description": "An Android-based informatics learning mobile app built with Kodular, offering interactive lessons and quizzes.",
-        "languageIcons": ["/kodular.png", "spreadsheet.png"]
-
+  {
+    "thumbnail": "/tech edify app.png",
+    "title": "Mobile App Android-Based Informatics Learning",
+    "link": {
+      "label": "Live Demo",
+      "url": "#"
     },
-    {
-        "thumbnail": "/wp cc.png",
-        "title": "WordPress-Based Learn Fundamental Coding Website",
-        "link": {
-            "label": "Live Demo",
-            "url": "https://codingoffice.serzv.my.id"
-        },
-        "description": "A WordPress-based website for learning fundamental coding, featuring interactive lessons, quizzes, and learning resources.",
-        "languageIcons": ["/wordpress.png", "/figma.png"]
-
+    "description": "A mobile learning app built with Kodular for Android devices, designed to teach basic informatics through interactive lessons, embedded quizzes, and visual-rich content. Uses spreadsheets as a backend for quiz data and progress tracking.",
+    "languageIcons": ["/kodular.png", "/spreadsheet.png"]
+  },
+  {
+    "thumbnail": "/wp cc.svg",
+    "title": "WordPress-Based Learn Fundamental Coding Website",
+    "link": {
+      "label": "Live Demo",
+      "url": "#"
     },
-    {
-        "thumbnail": "/wp tech edify.png",
-        "title": "WordPress-Based Informatics Learning Website for High School",
-        "link": {
-            "label": "Live Demo",
-            "url": "https://techedify.serzv.my.id"
-        },
-        "description": "A WordPress-based informatics learning website for high school students, featuring PDFs, quizzes, Q&A, and interactive learning tools.",
-        "languageIcons": ["/wordpress.png", "/figma.png"]
-
+    "description": "A WordPress-based website that teaches basic coding through interactive content, embedded quizzes, and downloadable resources. Designed with Figma for an intuitive and student-friendly experience.",
+    "languageIcons": ["/WordPress.svg", "/Figma.svg"]
+  },
+  {
+    "thumbnail": "/wp tech edify.svg",
+    "title": "WordPress-Based Informatics Learning Website for High School",
+    "link": {
+      "label": "Live Demo",
+      "url": "#"
     },
-    {
-        "thumbnail": "/tailwindweb.png",
-        "title": "Personal Portfolio Website with Framework Tailwind CSS",
-        "link": {
-            "label": "Live Demo",
-            "url": "https://github.com/s-erzv/serzvPortfolio"
-        },
-        "description": "A personal portfolio website built with Tailwind CSS to showcase projects, skills, and experience.",
-        "languageIcons": ["/css.png", "/HTML.png", "tailwind.png", "js.png"]
-
+    "description": "An educational website built with WordPress to help high school students learn informatics. Features include downloadable PDFs, multiple-choice quizzes, discussion forums, and responsive learning modules.",
+    "languageIcons": ["/WordPress.svg", "/Figma.svg"]
+  },
+  {
+    "thumbnail": "/globeTrekker.svg",
+    "title": "UI Design Globe Trekker - Tour n Travel Website",
+    "link": {
+      "label": "Live Demo",
+      "url": "https://bit.ly/studycaseUIUX_sarah"
     },
-    {
-        "thumbnail": "/lpHTML.png",
-        "title": "Landing Page Learn HTML for Beginners",
-        "link": {
-            "label": "Live Demo",
-            "url": "https://serzv.my.id/FinalProjectDicodingg/"
-        },
-        "description": "Learn HTML for Beginners is a landing page that provides easy-to-understand resources for learning HTML.",
-        "languageIcons": ["/css.png", "/HTML.png", "js.png"]
-
+    "description": "A UI/UX design project for a travel agency website focusing on ease of booking, clean layout, and user journey clarity. Created as a study case to demonstrate design thinking and flow optimization.",
+    "languageIcons": ["/Figma.svg"]
+  },
+  {
+    "thumbnail": "/pubmedia.svg",
+    "title": "UI Design and WP-Based Pubmedia Website",
+    "link": {
+      "label": "Live Demo",
+      "url": "https://services.pubmedia.co.id"
     },
-    {
-        "thumbnail": "/globeTrekker.png",
-        "title": "UI Design Globe Trekker - Tour n Travel Website",
-        "link": {
-            "label": "Live Demo",
-            "url": "https://bit.ly/studycaseUIUX_sarah"
-        },
-        "description": "Globe Trekker is a UI/UX project for a tour and travel website, focusing on user-friendly design and seamless navigation.",
-        "languageIcons": ["/figma.png"]
-
+    "description": "A corporate landing page for a publishing company offering DOI Traffic services. Built with WordPress and designed in Figma, the site provides company profile, service overviews, and direct contact options.",
+    "languageIcons": ["/Figma.svg", "/WordPress.svg"]
+  },
+  {
+    "thumbnail": "/Wedding.svg",
+    "title": "Project Digital Wedding Invitation Website",
+    "link": {
+      "label": "Live Demo",
+      "url": "https://wedding-invitation-rho-six.vercel.app/"
     },
-    {
-        "thumbnail": "/pubmedia.png",
-        "title": "UI Design and WP-Based Pubmedia Website",
-        "link": {
-            "label": "Live Demo",
-            "url": "https://services.pubmedia.co.id"
-        },
-        "description": "PubMedia is a landing page for a publishing company showcasing DOI Traffic services and company profile.",
-        "languageIcons": ["/figma.png", "/wordpress.png"]
-
+    "description": "A digital wedding invitation site with RSVP functionality, event details, and image gallery. Developed using Next.js and Tailwind CSS for a smooth, mobile-responsive experience.",
+    "languageIcons": ["/Next.js.svg", "/Tailwind CSS.svg", "/Figma.svg"]
+  },
+  {
+    "thumbnail": "/bibu.svg",
+    "title": "Project Company Profile for Bibu AMDK",
+    "link": {
+      "label": "Live Demo",
+      "url": "https://github.com/s-erzv/companyProfileBibuAMDK"
     },
-    {
-        "thumbnail": "/salaryPrediction.png",
-        "title": "Machine Learning Supervised Learning Salary Prediction",
-        "link": {
-            "label": "Live Demo",
-            "url": "https://github.com/s-erzv/SalaryPrediction-ML"
-        },
-        "description": "Machine Learning Salary Prediction is a project that predicts salaries based on years of work experience using machine learning models.",
-        "languageIcons": ["/python.png"]
-
+    "description": "A company profile website for Bibu AMDK designed to present their bottled water products and services. Built with clean and responsive HTML, CSS, and JavaScript.",
+    "languageIcons": ["/HTML5.svg", "/CSS3.svg", "/JavaScript.svg"]
+  },
+  {
+    "thumbnail": "/codify.svg",
+    "title": "Codify - LMS for Learning How to Code",
+    "link": {
+      "label": "Live Demo",
+      "url": "https://github.com/Codify-LMS/codify-lms"
     },
-    {
-        "thumbnail": "/ss.png",
-        "title": "Project Sky Solutions - Website Iclimate Change",
-        "link": {
-            "label": "Live Demo",
-            "url": "https://skysolutions.serzv.my.id"
-        },
-        "description": "Sky Solutions is a climate change education website with interactive features.",
-        "languageIcons": ["/figma.png", "/css.png", "/HTML.png", "js.png"]
-
+    "description": "An online learning platform (LMS) that helps users learn programming via lessons, quizzes, discussions, and a ranking system. Built using Next.js, Spring Boot, Supabase, and Tailwind CSS for scalability and interactivity.",
+    "languageIcons": ["/Next.js.svg", "/Spring.svg", "/supabase.svg", "/Tailwind CSS.svg"]
+  },
+  {
+    "thumbnail": "/tech edify web ap.svg",
+    "title": "Tech Edify - Informatics Learning Web App",
+    "link": {
+      "label": "Live Demo",
+      "url": "https://github.com/s-erzv/TechEdify"
     },
-    {
-        "thumbnail": "/twiliochess.png",
-        "title": "WhatsApp Chess Game Real-Time Chess with Twilio API",
-        "link": {
-            "label": "Live Demo",
-            "url": "#"
-        },
-        "description": "Twilio Chess lets players play chess via WhatsApp using Twilio API.",
-        "languageIcons": ["/python.png"]
-
+    "description": "A web-based version of the Tech Edify platform for learning informatics. Includes daily progress tracking, learning streaks, and interactive UI. Built using React, Supabase, and Tailwind CSS.",
+    "languageIcons": ["/React.svg", "/supabase.svg", "/Tailwind CSS.svg"]
+  },
+  {
+    "thumbnail": "/annajm.svg",
+    "title": "RA Annajm Company Profile",
+    "link": {
+      "label": "Live Demo",
+      "url": "https://github.com/s-erzv/annajm"
     },
-    {
-        "thumbnail": "/Wedding.png",
-        "title": "Project Digital Wedding Invitation Website",
-        "link": {
-            "label": "Live Demo",
-            "url": "https://wedding-invitation-rho-six.vercel.app/"
-        },
-        "description": "A digital wedding invitation website with RSVP and event details using Next.js and tailwind.",
-        "languageIcons": ["/nextjs.png", "/tailwind.png", "/figma.png"]
-
+    "description": "A lightweight, responsive company profile site for RA Annajm based in Bekasi Utara. Developed using React and Tailwind CSS to provide an elegant and informative user interface.",
+    "languageIcons": ["/React.svg", "/Tailwind CSS.svg"]
+  },
+  {
+    "thumbnail": "/bluework.svg",
+    "title": "Blue Work - Recruitment Application",
+    "link": {
+      "label": "Live Demo",
+      "url": "https://github.com/s-erzv/bluework.id"
     },
-    {
-        "thumbnail": "/bibu.png",
-        "title": "Project Comapny Profile for Bibu AMDK",
-        "link": {
-            "label": "Live Demo",
-            "url": "https://github.com/s-erzv/companyProfileBibuAMDK"
-        },
-        "description": "A company profile website for Bibu AMDK, showcasing products and services.",
-        "languageIcons": ["/HTML.png","/css.png", "js.png"]
-
+    "description": "A recruitment platform that allows users to browse job openings, submit applications, and export their data in PDF/Excel formats. Built with React for the frontend, Supabase for the backend, and styled with Tailwind CSS.",
+    "languageIcons": ["/React.svg", "/supabase.svg", "/Tailwind CSS.svg"]
+  },
+  {
+    "thumbnail": "/planix.svg",
+    "title": "Planix - AI Regional Planner",
+    "link": {
+      "label": "Live Demo",
+      "url": "#"
     },
-    {
-        "thumbnail": "/aiml-gdgoc.png",
-        "title": "Project AI & ML GDGOC Student Performance Prediction",
-        "link": {
-            "label": "Live Demo",
-            "url": "#"
-        },
-        "description": "A project that predicts student performance using machine learning.",
-        "languageIcons": ["/python.png"]
-
-    }
+    "description": "TBC",
+    "languageIcons": ["/React.svg", "/Firebase.svg", "/Tailwind CSS.svg", "/gemini.svg"]
+  }
 ]

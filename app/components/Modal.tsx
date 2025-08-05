@@ -1,33 +1,72 @@
 import React from 'react';
-import { X } from 'lucide-react';
-import type {Skill} from '../../types/Skill';
 
-interface ModalProps {
-  skill: Skill;
+type ProjectProps = {
+  thumbnail: string;
+  title: string;
+  link: { url: string; label: string };
+  description: string;
+  languageIcons: string[];
+};
+
+type ModalProps = {
+  project: ProjectProps | null;
   onClose: () => void;
-}
+};
 
+const Modal = ({ project, onClose }: ModalProps) => {
+  if (!project) return null;
 
-const Modal: React.FC<ModalProps> = ({ skill, onClose }) => {
   return (
-      <div
-    className="fixed inset-0 bg-black bg-opacity-50 z-50 flex justify-center items-center px-4"
-    onClick={onClose} 
-  >
-    <div
-      className="card p-12 rounded-lg md:w-3/4 sm:max-w-screen-sm shadow-lg relative"
-      onClick={(e) => e.stopPropagation()} 
+    // Backdrop
+    <div 
+      className="fixed inset-0 bg-black bg-opacity-70 flex justify-center items-center p-4 z-[999] transition-opacity duration-300 ease-out" 
+      onClick={onClose}
     >
-        <button onClick={onClose} className="absolute top-4 right-4 text-gray-500 hover:text-black dark:hover:text-white">
-          <X />
+      {/* Modal content */}
+      <div 
+        className="bg-[var(--card)] text-[var(--foreground)] rounded-xl shadow-2xl p-8 max-w-3xl w-full relative transform transition-transform duration-300 ease-out scale-95 md:scale-100 border border-[var(--primary)]"
+        onClick={e => e.stopPropagation()} 
+      >
+        <button 
+          onClick={onClose} 
+          className="absolute top-4 right-4 text-[var(--foreground)] opacity-70 hover:opacity-100 text-3xl leading-none transition-opacity"
+        >
+          &times;
         </button>
-        <div className="items-center gap-4">
-          <img src={skill.icon} alt={skill.name} className="w-20 h-20 mb-4" />
-          <div>
-            <h2 className="text-xl font-semibold sm:text-lg">{skill.name}</h2>
-            <p className="text-sm text-gray-700 dark:text-gray-300 mt-2 sm:text-xs">
-              {skill.description}
-            </p>
+        
+        {/* Konten Modal */}
+        <div className="flex flex-col md:flex-row gap-6">
+          <div className="md:w-1/2">
+            <img 
+              src={project.thumbnail} 
+              alt={`${project.title} thumbnail`} 
+              className="w-full h-auto rounded-lg object-cover border border-[var(--secondary)]" 
+            />
+          </div>
+          
+          <div className="md:w-1/2 flex flex-col justify-between">
+            <div>
+              <h2 className="font-bold text-3xl mb-2 text-[var(--primary)]">
+                {project.title}
+              </h2>
+              <p className="text-[var(--foreground)] opacity-80 leading-relaxed mb-4">{project.description}</p>
+            </div>
+
+            <div className="flex flex-col gap-4 mt-auto">
+              <div className="flex flex-wrap gap-2 items-center">
+                {project.languageIcons.map((icon, iconId) => (
+                  <img src={icon} alt="language icon" key={iconId} className="w-8 h-8 object-contain transition-all duration-200" />
+                ))}
+              </div>
+              <a 
+                href={project.link.url} 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="inline-block bg-[var(--primary)] text-black font-semibold py-3 px-6 rounded-lg text-center hover:bg-[var(--secondary)] transition-colors duration-300 transform hover:-translate-y-1"
+              >
+                {project.link.label}
+              </a>
+            </div>
           </div>
         </div>
       </div>

@@ -1,49 +1,36 @@
 import React from "react";
-import Image from "next/image";
 import experiences from "@/data/experiences.json";
 import SectionHeader from "../Section/SectionHeader";
 import SectionContainer from "../Section/SectionContainer";
-
+import { Button } from "../ui/moving-border";
 
 const ExperiencesSection: React.FC = () => {
   return (
     <SectionContainer className="py-10 z-10" id="experience">
       <div className="max-w-5xl mx-auto px-5">
-      <SectionHeader plaintext='My Prior' highlightText='Work Experience' />
-        <div className="space-y-8 pt-12">
+        <SectionHeader plaintext="My Prior" highlightText="Work Experience" />
+        <div className="space-y-6 pt-12">
           {experiences.map((exp, index) => (
-            <div
+            <Button
               key={index}
-              className="p-8 bg-card rounded-2xl shadow-md flex flex-col md:flex-row items-center gap-5 border border-primary"
+              borderRadius="1.75rem"
+              // Perbaikan di sini: Menyesuaikan kelas untuk light mode
+              className="w-full text-left px-6 py-6 transition-all duration-300
+                         bg-gray-100/50 text-gray-800 border border-gray-200
+                         hover:bg-gray-200/50
+                         dark:bg-white/5 dark:text-white dark:border-white/10 dark:hover:bg-white/10"
             >
-             {exp.image ? (
-                <Image
-                    src={exp.image}
-                    alt={exp.company}
-                    width={80}
-                    height={80}
-                    className="rounded-full bg-white p-2"
-                />
-                ) : (
-                <div className="w-20 h-20 bg-gray-300 rounded-full flex items-center justify-center">
-                    <span>No Image</span>
+              <div className="space-y-2">
+                <div className="flex items-center justify-between">
+                  <h3 className="text-secondary text-xl md:text-2xl font-semibold">
+                    {exp.role}
+                  </h3> 
                 </div>
-                )}
-
-            <div className="flex-1">
-              <h3 className="text-sm md:text-xl font-semibold">{exp.role}</h3>
-              <div className="flex flex-wrap justify-between items-center">
-                <p className="text-xs md:text-sm text-foreground">{exp.company}</p>
-                <p className="text-xs md:text-sm text-foreground">{exp.dates}</p>
+                <p className="text-sm md:text-base leading-relaxed">
+                  {exp.description}
+                </p>
               </div>
-              <ul className="text-[10px] md:text-sm text-foreground pt-3 md:text-left text-justify">
-                {exp.description.map((desc, i) => (
-                  <li key={i}>{desc}</li>
-                ))}
-              </ul>
-            </div>
-
-            </div>
+            </Button>
           ))}
         </div>
       </div>

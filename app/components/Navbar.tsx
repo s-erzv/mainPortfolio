@@ -1,9 +1,10 @@
 "use client";
 
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import cn from "classnames";
 import { motion } from "framer-motion";
 import Image from "next/image";
+import { useTheme } from "next-themes"; // Import useTheme
 
 const sidebarVariants = {
     hidden: { x: "-100%", opacity: 0 },
@@ -14,24 +15,17 @@ const sidebarVariants = {
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [activeSection, setActiveSection] = useState("home");
-    const [darkMode, setDarkMode] = useState(false);
+    
+    // Ganti state dan logika dark mode manual dengan useTheme
+    const { resolvedTheme, setTheme } = useTheme();
+    const [mounted, setMounted] = useState(false);
 
-    // Load theme dari localStorage
     useEffect(() => {
-        const savedTheme = localStorage.getItem("theme");
-        if (savedTheme === "dark") {
-            setDarkMode(true);
-            document.documentElement.classList.add("dark");
-        }
+        setMounted(true);
     }, []);
 
     const toggleDarkMode = () => {
-        setDarkMode((prev) => {
-            const newTheme = !prev ? "dark" : "light";
-            document.documentElement.classList.toggle("dark", !prev);
-            localStorage.setItem("theme", newTheme);
-            return !prev;
-        });
+        setTheme(resolvedTheme === "dark" ? "light" : "dark");
     };
 
     const scrollToSection = useCallback((sectionId: string) => {
@@ -41,6 +35,10 @@ const Navbar = () => {
         }
     }, []);
 
+    if (!mounted) {
+        return null;
+    }
+    
     return (
         <div className="fixed top-6 left-1/2 -translate-x-1/2 z-50 w-[90%] max-w-[1150px]">
             {/* Navbar Container */}
@@ -79,7 +77,7 @@ const Navbar = () => {
                 >
                     <div
                         className={`w-5 h-5 rounded-full shadow-md transition-all ${
-                            darkMode ? "translate-x-6 bg-card" : "bg-primary"
+                            resolvedTheme === "dark" ? "translate-x-6 bg-card" : "bg-primary"
                         }`}
                     ></div>
                 </div>
