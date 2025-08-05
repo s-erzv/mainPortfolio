@@ -102,7 +102,7 @@ interface BandProps {
   isDark: boolean;
 }
 
-interface GLTFResult extends Gltf {
+interface GLTFResult extends typeof Gltf {
   nodes: {
     card: THREE.Mesh;
     clip: THREE.Mesh;
