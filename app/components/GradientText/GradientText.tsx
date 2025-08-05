@@ -6,7 +6,7 @@ interface GradientTextProps {
   className?: string;
   colors?: string[];
   animationSpeed?: number;
-  showBorder?: boolean;
+  // showBorder?: boolean;
 }
 
 export default function GradientText({

@@ -10,7 +10,8 @@ import {
 import { useRef } from "react";
 import { cn } from "../../lib/utils";
 
-export function Button({
+// Menggunakan generic T untuk tipe elemen yang dinamis
+export function Button<T extends React.ElementType = "button">({
   borderRadius = "1.75rem",
   children,
   as: Component = "button",
@@ -22,13 +23,12 @@ export function Button({
 }: {
   borderRadius?: string;
   children: React.ReactNode;
-  as?: any;
+  as?: T;
   containerClassName?: string;
   borderClassName?: string;
   duration?: number;
   className?: string;
-  [key: string]: any;
-}) {
+} & React.ComponentPropsWithoutRef<T>) { // Tipe props disesuaikan dengan elemen T
   return (
     <Component
       className={cn(
@@ -83,9 +83,8 @@ export const MovingBorder = ({
   duration?: number;
   rx?: string;
   ry?: string;
-  [key: string]: any;
-}) => {
-  const pathRef = useRef<any>();
+} & React.ComponentPropsWithoutRef<"svg">) => { // Menggunakan tipe props yang spesifik
+  const pathRef = useRef<SVGRectElement>(null); // Menggunakan tipe yang tepat untuk elemen SVG
   const progress = useMotionValue<number>(0);
 
   useAnimationFrame((time) => {

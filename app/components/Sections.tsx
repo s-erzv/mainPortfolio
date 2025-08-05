@@ -4,7 +4,6 @@ import Skills from '../components/Skills/Skills'
 import Projects from './Projects/Projects';
 import Contact from './Contact';
 import ExperiencesSection from './Experiences/ExperiencesSection';
-import TechJokes from './TechJokes';
 
 
 

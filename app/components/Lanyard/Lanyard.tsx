@@ -1,13 +1,14 @@
 /* eslint-disable react/no-unknown-property */
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import { Canvas, extend, useFrame } from "@react-three/fiber";
+import { useEffect, useRef, useState, RefObject } from "react";
+import { Canvas, extend, useFrame, ThreeEvent } from "@react-three/fiber";
 import {
   useGLTF,
   useTexture,
   Environment,
   Lightformer,
+  GLTF,
 } from "@react-three/drei";
 import {
   BallCollider,
@@ -17,10 +18,12 @@ import {
   useRopeJoint,
   useSphericalJoint,
   RigidBodyProps,
+  RigidBodyApi,
 } from "@react-three/rapier";
 import { MeshLineGeometry, MeshLineMaterial } from "meshline";
 import * as THREE from "three";
 import { useTheme } from "next-themes";
+import { Mesh, MeshPhysicalMaterial, MeshStandardMaterial } from "three";
 
 extend({ MeshLineGeometry, MeshLineMaterial });
 
@@ -100,6 +103,18 @@ interface BandProps {
   isDark: boolean;
 }
 
+interface GLTFResult extends GLTF {
+  nodes: {
+    card: THREE.Mesh;
+    clip: THREE.Mesh;
+    clamp: THREE.Mesh;
+  };
+  materials: {
+    base: MeshPhysicalMaterial;
+    metal: MeshStandardMaterial;
+  };
+}
+
 function Band({ maxSpeed = 50, minSpeed = 0, isDark }: BandProps) {
   const cardGLB = isDark
     ? "/assets/lanyard/card-dark.glb"
@@ -109,27 +124,27 @@ function Band({ maxSpeed = 50, minSpeed = 0, isDark }: BandProps) {
     ? "/assets/lanyard/lanyard-dark.png"
     : "/assets/lanyard/lanyard.png";
 
-  const band = useRef<any>(null);
-  const fixed = useRef<any>(null);
-  const j1 = useRef<any>(null);
-  const j2 = useRef<any>(null);
-  const j3 = useRef<any>(null);
-  const card = useRef<any>(null);
+  const band = useRef<THREE.Mesh<MeshLineGeometry, MeshLineMaterial>>(null);
+  const fixed = useRef<RigidBodyApi>(null);
+  const j1 = useRef<RigidBodyApi>(null);
+  const j2 = useRef<RigidBodyApi>(null);
+  const j3 = useRef<RigidBodyApi>(null);
+  const card = useRef<RigidBodyApi>(null);
 
   const vec = new THREE.Vector3();
   const ang = new THREE.Vector3();
   const rot = new THREE.Vector3();
   const dir = new THREE.Vector3();
 
-  const segmentProps: any = {
-    type: "dynamic" as RigidBodyProps["type"],
+  const segmentProps: RigidBodyProps = {
+    type: "dynamic",
     canSleep: true,
     colliders: false,
     angularDamping: 4,
     linearDamping: 4,
   };
 
-  const { nodes, materials } = useGLTF(cardGLB) as any;
+  const { nodes, materials } = useGLTF(cardGLB) as GLTFResult;
   const texture = useTexture(lanyardTexture);
 
   const [curve] = useState(
@@ -182,7 +197,9 @@ function Band({ maxSpeed = 50, minSpeed = 0, isDark }: BandProps) {
       vec.set(state.pointer.x, state.pointer.y, 0.5).unproject(state.camera);
       dir.copy(vec).sub(state.camera.position).normalize();
       vec.add(dir.multiplyScalar(state.camera.position.length()));
-      [card, j1, j2, j3, fixed].forEach((ref) => ref.current?.wakeUp());
+      [card, j1, j2, j3, fixed].forEach(
+        (ref: RefObject<RigidBodyApi>) => ref.current?.wakeUp()
+      );
       card.current?.setNextKinematicTranslation({
         x: vec.x - dragged.x,
         y: vec.y - dragged.y,
@@ -190,7 +207,8 @@ function Band({ maxSpeed = 50, minSpeed = 0, isDark }: BandProps) {
       });
     }
     if (fixed.current) {
-      [j1, j2].forEach((ref) => {
+      [j1, j2].forEach(
+        (ref: RefObject<RigidBodyApi>) => {
         if (!ref.current.lerped)
           ref.current.lerped = new THREE.Vector3().copy(
             ref.current.translation()
@@ -243,11 +261,11 @@ function Band({ maxSpeed = 50, minSpeed = 0, isDark }: BandProps) {
             position={[0, -1.2, -0.05]}
             onPointerOver={() => hover(true)}
             onPointerOut={() => hover(false)}
-            onPointerUp={(e: any) => {
+            onPointerUp={(e: ThreeEvent<PointerEvent>) => {
               e.target.releasePointerCapture(e.pointerId);
               drag(false);
             }}
-            onPointerDown={(e: any) => {
+            onPointerDown={(e: ThreeEvent<PointerEvent>) => {
               e.target.setPointerCapture(e.pointerId);
               drag(
                 new THREE.Vector3()

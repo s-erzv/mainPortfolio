@@ -1,11 +1,9 @@
 'use client';
-import { useState } from 'react';
 import { motion } from 'framer-motion';
 import React from 'react';
 import skills from '@/data/skills.json';
 import SectionContainer from '../Section/SectionContainer';
 import SectionHeader from '../Section/SectionHeader';
-import type { Skill } from '@/types/Skill';
 import SkillCard from '@/types/Skill';
 
 const cardVariants = {
