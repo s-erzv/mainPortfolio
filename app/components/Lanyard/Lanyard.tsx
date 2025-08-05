@@ -1,4 +1,3 @@
-/* eslint-disable react/no-unknown-property */
 "use client";
 
 import { useEffect, useRef, useState, RefObject } from "react";
@@ -8,7 +7,7 @@ import {
   useTexture,
   Environment,
   Lightformer,
-  GLTF,
+  Gltf,
 } from "@react-three/drei";
 import {
   BallCollider,
@@ -103,7 +102,7 @@ interface BandProps {
   isDark: boolean;
 }
 
-interface GLTFResult extends GLTF {
+interface GLTFResult extends Gltf {
   nodes: {
     card: THREE.Mesh;
     clip: THREE.Mesh;
