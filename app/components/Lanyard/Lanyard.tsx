@@ -21,9 +21,7 @@ import {
 import { MeshLineGeometry, MeshLineMaterial } from "meshline";
 import * as THREE from "three";
 import { useTheme } from "next-themes";
-import { MeshPhysicalMaterial, MeshStandardMaterial, Mesh, BufferGeometry, Material, Object3D, NormalBufferAttributes } from "three";
-import { GLTF } from "three/examples/jsm/loaders/GLTFLoader";
-import { ObjectMap } from "@react-three/fiber";
+import { MeshPhysicalMaterial, MeshStandardMaterial } from "three";
 
 extend({ MeshLineGeometry, MeshLineMaterial });
 
@@ -102,8 +100,8 @@ interface BandProps {
   isDark: boolean;
 }
 
-// Interface ini sekarang extends tipe GLTF yang sebenarnya
-interface GLTFResult extends GLTF {
+// Interface ini hanya mendefinisikan tipe data yang Anda butuhkan
+interface GLTFResult {
   nodes: {
     card: THREE.Mesh;
     clip: THREE.Mesh;
@@ -145,7 +143,6 @@ function Band({ maxSpeed = 50, minSpeed = 0, isDark }: BandProps) {
     linearDamping: 4,
   };
 
-  // Menggunakan as GLTFResult setelah import GLTF yang benar
   const { nodes, materials } = useGLTF(cardGLB) as GLTFResult;
   const texture = useTexture(lanyardTexture);
 
