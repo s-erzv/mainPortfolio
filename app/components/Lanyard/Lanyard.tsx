@@ -7,7 +7,6 @@ import {
   useTexture,
   Environment,
   Lightformer,
-  Gltf,
 } from "@react-three/drei";
 import {
   BallCollider,
@@ -22,7 +21,8 @@ import {
 import { MeshLineGeometry, MeshLineMaterial } from "meshline";
 import * as THREE from "three";
 import { useTheme } from "next-themes";
-import { MeshPhysicalMaterial, MeshStandardMaterial } from "three";
+import { MeshPhysicalMaterial, MeshStandardMaterial, Mesh, BufferGeometry, Material, Object3D, NormalBufferAttributes } from "three";
+import { ObjectMap } from "@react-three/fiber";
 
 extend({ MeshLineGeometry, MeshLineMaterial });
 
@@ -102,7 +102,7 @@ interface BandProps {
 }
 
 // Interface ini mendefinisikan tipe data yang Anda harapkan dari useGLTF
-interface GLTFResult {
+interface GLTFResult extends ObjectMap {
   nodes: {
     card: THREE.Mesh;
     clip: THREE.Mesh;
@@ -130,7 +130,6 @@ function Band({ maxSpeed = 50, minSpeed = 0, isDark }: BandProps) {
   const j3 = useRef<RapierRigidBody>(null);
   const card = useRef<RapierRigidBody>(null);
 
-  // Menggunakan useRef untuk objek-objek THREE.Vector3 agar lebih efisien
   const vec = useRef(new THREE.Vector3());
   const ang = useRef(new THREE.Vector3());
   const rot = useRef(new THREE.Quaternion());
@@ -145,7 +144,8 @@ function Band({ maxSpeed = 50, minSpeed = 0, isDark }: BandProps) {
     linearDamping: 4,
   };
 
-  const { nodes, materials } = useGLTF(cardGLB) as GLTFResult;
+  // Menggunakan generics pada useGLTF untuk memberikan tipe data yang benar
+  const { nodes, materials } = useGLTF<GLTFResult>(cardGLB);
   const texture = useTexture(lanyardTexture);
 
   const [curve] = useState(
@@ -210,7 +210,6 @@ function Band({ maxSpeed = 50, minSpeed = 0, isDark }: BandProps) {
 
 
   useFrame((state, delta) => {
-    // Logika drag menggunakan useRef
     if (dragStart.current && card.current) {
       vec.current.set(state.pointer.x, state.pointer.y, 0.5).unproject(state.camera);
       dir.current.copy(vec.current).sub(state.camera.position).normalize();
@@ -243,14 +242,12 @@ function Band({ maxSpeed = 50, minSpeed = 0, isDark }: BandProps) {
         );
       });
       
-      // Memperbarui titik-titik curve
       curve.points[0].copy(card.current.translation());
       curve.points[1].copy(j3.current?.translation() ?? new THREE.Vector3());
       curve.points[2].copy(j2.current?.lerped ?? new THREE.Vector3());
       curve.points[3].copy(j1.current?.lerped ?? new THREE.Vector3());
       band.current.geometry.setPoints(curve.getPoints(32));
 
-      // Damping rotasi card
       ang.current.copy(card.current.angvel());
       rot.current.copy(card.current.rotation());
       card.current.setAngvel({ x: ang.current.x, y: ang.current.y - rot.current.y * 0.25, z: ang.current.z });
