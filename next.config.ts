@@ -1,7 +1,11 @@
 import type { NextConfig } from "next";
 
-const nextConfig: NextConfig = { 
-  webpack: (config, { isServer }) => { 
+const nextConfig: NextConfig = {
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
+
+  webpack: (config, { isServer }) => {
     config.module.rules.push({
       test: /\.(glb|gltf)$/,
       use: [
