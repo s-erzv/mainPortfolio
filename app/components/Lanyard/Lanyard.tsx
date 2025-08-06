@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState, RefObject } from "react";
+import { useEffect, useRef, useState, RefObject, useCallback } from "react";
 import { Canvas, extend, useFrame, ThreeEvent } from "@react-three/fiber";
 import {
   useGLTF,
@@ -41,7 +41,6 @@ export default function Lanyard({
 }: LanyardProps) {
   const { resolvedTheme } = useTheme();
 
-  // Avoid SSR crash
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);
   if (!mounted || !resolvedTheme) return null;
@@ -52,13 +51,13 @@ export default function Lanyard({
     <div className="relative z-0 w-full h-screen flex justify-center items-center transform scale-100 origin-center">
       <Canvas
         camera={{ position, fov }}
-        gl={{ alpha: transparent }}
-        onCreated={({ gl }) =>
-          gl.setClearColor(new THREE.Color(0x000000), transparent ? 0 : 1)
-        }
+        gl={{ alpha: transparent, antialias: true }}
+        onCreated={({ gl }) => {
+          gl.setClearColor(new THREE.Color(0x000000), transparent ? 0 : 1);
+        }}
       >
         <ambientLight intensity={Math.PI} />
-        <Physics gravity={gravity} timeStep={1 / 60}>
+        <Physics gravity={gravity} timeStep="vary">
           <Band isDark={isDark} />
         </Physics>
         <Environment blur={0.75}>
@@ -102,7 +101,8 @@ interface BandProps {
   isDark: boolean;
 }
 
-interface GLTFResult extends typeof Gltf {
+// Interface ini mendefinisikan tipe data yang Anda harapkan dari useGLTF
+interface GLTFResult {
   nodes: {
     card: THREE.Mesh;
     clip: THREE.Mesh;
@@ -130,10 +130,12 @@ function Band({ maxSpeed = 50, minSpeed = 0, isDark }: BandProps) {
   const j3 = useRef<RapierRigidBody>(null);
   const card = useRef<RapierRigidBody>(null);
 
-  const vec = new THREE.Vector3();
-  const ang = new THREE.Vector3();
-  const rot = new THREE.Vector3();
-  const dir = new THREE.Vector3();
+  // Menggunakan useRef untuk objek-objek THREE.Vector3 agar lebih efisien
+  const vec = useRef(new THREE.Vector3());
+  const ang = useRef(new THREE.Vector3());
+  const rot = useRef(new THREE.Quaternion());
+  const dir = useRef(new THREE.Vector3());
+  const dragStart = useRef<THREE.Vector3 | null>(null);
 
   const segmentProps: RigidBodyProps = {
     type: "dynamic",
@@ -143,7 +145,7 @@ function Band({ maxSpeed = 50, minSpeed = 0, isDark }: BandProps) {
     linearDamping: 4,
   };
 
-  const { nodes, materials } = useGLTF(cardGLB) as unknown as GLTFResult;
+  const { nodes, materials } = useGLTF(cardGLB) as GLTFResult;
   const texture = useTexture(lanyardTexture);
 
   const [curve] = useState(
@@ -156,7 +158,6 @@ function Band({ maxSpeed = 50, minSpeed = 0, isDark }: BandProps) {
       ])
   );
 
-  const [dragged, drag] = useState<false | THREE.Vector3>(false);
   const [hovered, hover] = useState(false);
 
   const [isSmall, setIsSmall] = useState<boolean>(() => {
@@ -170,6 +171,7 @@ function Band({ maxSpeed = 50, minSpeed = 0, isDark }: BandProps) {
     const handleResize = (): void => {
       setIsSmall(window.innerWidth < 1024);
     };
+    handleResize();
     window.addEventListener("resize", handleResize);
     return (): void => window.removeEventListener("resize", handleResize);
   }, []);
@@ -184,30 +186,49 @@ function Band({ maxSpeed = 50, minSpeed = 0, isDark }: BandProps) {
 
   useEffect(() => {
     if (hovered) {
-      document.body.style.cursor = dragged ? "grabbing" : "grab";
-      return () => {
-        document.body.style.cursor = "auto";
-      };
+      document.body.style.cursor = dragStart.current ? "grabbing" : "grab";
+    } else {
+      document.body.style.cursor = "auto";
     }
-  }, [hovered, dragged]);
+  }, [hovered]);
+
+  const onPointerDown = useCallback((e: ThreeEvent<PointerEvent>) => {
+    e.stopPropagation();
+    e.target.setPointerCapture(e.pointerId);
+    dragStart.current = new THREE.Vector3()
+      .copy(e.point)
+      .sub(card.current?.translation() ?? new THREE.Vector3());
+    card.current?.setNextKinematic(true);
+  }, []);
+
+  const onPointerUp = useCallback((e: ThreeEvent<PointerEvent>) => {
+    e.stopPropagation();
+    e.target.releasePointerCapture(e.pointerId);
+    dragStart.current = null;
+    card.current?.setNextKinematic(false);
+  }, []);
+
 
   useFrame((state, delta) => {
-    if (dragged && typeof dragged !== "boolean") {
-      vec.set(state.pointer.x, state.pointer.y, 0.5).unproject(state.camera);
-      dir.copy(vec).sub(state.camera.position).normalize();
-      vec.add(dir.multiplyScalar(state.camera.position.length()));
-      [card, j1, j2, j3, fixed].forEach(
-        (ref: RefObject<RapierRigidBody>) => ref.current?.wakeUp()
-      );
-      card.current?.setNextKinematicTranslation({
-        x: vec.x - dragged.x,
-        y: vec.y - dragged.y,
-        z: vec.z - dragged.z,
-      });
+    // Logika drag menggunakan useRef
+    if (dragStart.current && card.current) {
+      vec.current.set(state.pointer.x, state.pointer.y, 0.5).unproject(state.camera);
+      dir.current.copy(vec.current).sub(state.camera.position).normalize();
+      vec.current.add(dir.current.multiplyScalar(state.camera.position.length()));
+
+      [card, j1, j2, j3, fixed].forEach(ref => ref.current?.wakeUp());
+
+      const newPos = {
+        x: vec.current.x - dragStart.current.x,
+        y: vec.current.y - dragStart.current.y,
+        z: vec.current.z - dragStart.current.z,
+      };
+
+      card.current.setNextKinematicTranslation(newPos);
     }
-    if (fixed.current) {
-      [j1, j2].forEach(
-        (ref: RefObject<RapierRigidBody>) => {
+
+    if (fixed.current && card.current) {
+      [j1, j2].forEach(ref => {
         if (!ref.current.lerped)
           ref.current.lerped = new THREE.Vector3().copy(
             ref.current.translation()
@@ -221,14 +242,18 @@ function Band({ maxSpeed = 50, minSpeed = 0, isDark }: BandProps) {
           delta * (minSpeed + clampedDistance * (maxSpeed - minSpeed))
         );
       });
-      curve.points[0].copy(j3.current.translation());
-      curve.points[1].copy(j2.current.lerped);
-      curve.points[2].copy(j1.current.lerped);
-      curve.points[3].copy(fixed.current.translation());
+      
+      // Memperbarui titik-titik curve
+      curve.points[0].copy(card.current.translation());
+      curve.points[1].copy(j3.current?.translation() ?? new THREE.Vector3());
+      curve.points[2].copy(j2.current?.lerped ?? new THREE.Vector3());
+      curve.points[3].copy(j1.current?.lerped ?? new THREE.Vector3());
       band.current.geometry.setPoints(curve.getPoints(32));
-      ang.copy(card.current.angvel());
-      rot.copy(card.current.rotation());
-      card.current.setAngvel({ x: ang.x, y: ang.y - rot.y * 0.25, z: ang.z });
+
+      // Damping rotasi card
+      ang.current.copy(card.current.angvel());
+      rot.current.copy(card.current.rotation());
+      card.current.setAngvel({ x: ang.current.x, y: ang.current.y - rot.current.y * 0.25, z: ang.current.z });
     }
   });
 
@@ -252,7 +277,7 @@ function Band({ maxSpeed = 50, minSpeed = 0, isDark }: BandProps) {
           position={[2, 0, 0]}
           ref={card}
           {...segmentProps}
-          type={dragged ? "kinematicPosition" : "dynamic"}
+          type={dragStart.current ? "kinematicPosition" : "dynamic"}
         >
           <CuboidCollider args={[0.8, 1.125, 0.01]} />
           <group
@@ -260,18 +285,8 @@ function Band({ maxSpeed = 50, minSpeed = 0, isDark }: BandProps) {
             position={[0, -1.2, -0.05]}
             onPointerOver={() => hover(true)}
             onPointerOut={() => hover(false)}
-            onPointerUp={(e: ThreeEvent<PointerEvent>) => {
-              e.target.releasePointerCapture(e.pointerId);
-              drag(false);
-            }}
-            onPointerDown={(e: ThreeEvent<PointerEvent>) => {
-              e.target.setPointerCapture(e.pointerId);
-              drag(
-                new THREE.Vector3()
-                  .copy(e.point)
-                  .sub(vec.copy(card.current.translation()))
-              );
-            }}
+            onPointerUp={onPointerUp}
+            onPointerDown={onPointerDown}
           >
             <mesh geometry={nodes.card.geometry}>
               <meshPhysicalMaterial
