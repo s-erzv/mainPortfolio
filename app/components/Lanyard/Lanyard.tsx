@@ -203,7 +203,8 @@ function Band({ maxSpeed = 50, minSpeed = 0, isDark }: BandProps) {
 
   const onPointerUp = useCallback((e: ThreeEvent<PointerEvent>) => {
     e.stopPropagation();
-    e.target.releasePointerCapture(e.pointerId);
+    const el2 = e.target as Element | null;
+    el2?.releasePointerCapture?.(e.pointerId);
     dragStart.current = null;
     card.current?.setBodyType(RAPIER.RigidBodyType.Dynamic, true);
   }, []);
