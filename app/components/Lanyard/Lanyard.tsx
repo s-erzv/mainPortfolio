@@ -1,4 +1,5 @@
 "use client";
+import type { GLTF } from "three-stdlib";
 
 import { useEffect, useRef, useState, RefObject, useCallback } from "react";
 import { Canvas, extend, useFrame, ThreeEvent } from "@react-three/fiber";
@@ -101,7 +102,7 @@ interface BandProps {
 }
 
 // Interface ini hanya mendefinisikan tipe data yang Anda butuhkan
-interface GLTFResult {
+type GLTFResult = GLTF & {
   nodes: {
     card: THREE.Mesh;
     clip: THREE.Mesh;
@@ -143,7 +144,7 @@ function Band({ maxSpeed = 50, minSpeed = 0, isDark }: BandProps) {
     linearDamping: 4,
   };
 
-  const { nodes, materials } = useGLTF(cardGLB) as GLTFResult;
+  const { nodes, materials } = useGLTF<GLTFResult>(cardGLB);
   const texture = useTexture(lanyardTexture);
 
   const [curve] = useState(

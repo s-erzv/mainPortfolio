@@ -21,7 +21,7 @@ const cardVariants = {
 
 const Skills = () => {
   return (
-    <SectionContainer id="skills" className="relative">
+    <SectionContainer id="skills" className="relative mb-12">
       <div className="relative z-10 max-w-5xl mx-auto px-5">
         <SectionHeader plaintext='This is my' highlightText='Tech Stack' />
 
