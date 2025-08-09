@@ -124,11 +124,11 @@ function Band({ maxSpeed = 50, minSpeed = 0, isDark }: BandProps) {
     : "/assets/lanyard/lanyard.png";
 
   const band = useRef<THREE.Mesh<MeshLineGeometry, MeshLineMaterial>>(null);
-  const fixed = useRef<RapierRigidBody>(null);
-  const j1 = useRef<RapierRigidBody>(null);
-  const j2 = useRef<RapierRigidBody>(null);
-  const j3 = useRef<RapierRigidBody>(null);
-  const card = useRef<RapierRigidBody>(null);
+  const fixed = useRef<RapierRigidBody>(null!);
+  const j1 = useRef<RapierRigidBody>(null!);
+  const j2 = useRef<RapierRigidBody>(null!);
+  const j3 = useRef<RapierRigidBody>(null!);
+  const card = useRef<RapierRigidBody>(null!);
 
   const vec = useRef(new THREE.Vector3());
   const ang = useRef(new THREE.Vector3());
