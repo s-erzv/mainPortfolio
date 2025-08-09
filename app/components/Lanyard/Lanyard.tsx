@@ -144,7 +144,7 @@ function Band({ maxSpeed = 50, minSpeed = 0, isDark }: BandProps) {
     linearDamping: 4,
   };
 
-  const { nodes, materials } = useGLTF<GLTFResult>(cardGLB);
+  const { nodes, materials } = useGLTF(cardGLB) as unknown as GLTFResult;
   const texture = useTexture(lanyardTexture);
 
   const [curve] = useState(
