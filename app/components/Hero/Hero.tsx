@@ -24,11 +24,11 @@ const Hero: React.FC = () => {
     : ['#2f39c6', '#aad3f8'];
 
   return (
-    <section className="relative z-20 mx-auto px-6 flex flex-col md:flex-row md:gap-[50px] md:mx-[-40px] justify-center items-center md:items-start top-[-330px] md:top-[-213px] h-screen"> {/* Added h-screen for better mobile container */}
+    <section className="relative z-20 mx-auto px-6 flex flex-col md:flex-row md:gap-[50px] md:mx-[-40px] justify-center items-center md:items-start top-[-213px] md:top-[-213px] h-screen">
       
       {/* Lanyard for Mobile */}
       <motion.div
-        className="block md:hidden mb-6 h-[400px] w-full flex items-center justify-center overflow-hidden"
+        className="block md:hidden h-[300px] w-full flex items-center justify-center overflow-hidden"
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.2 }}

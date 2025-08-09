@@ -101,7 +101,6 @@ interface BandProps {
   isDark: boolean;
 }
 
-// Interface ini hanya mendefinisikan tipe data yang Anda butuhkan
 type GLTFResult = GLTF & {
   nodes: {
     card: THREE.Mesh;
@@ -113,7 +112,6 @@ type GLTFResult = GLTF & {
     metal: MeshStandardMaterial;
   };
 }
-
 function Band({ maxSpeed = 50, minSpeed = 0, isDark }: BandProps) {
   const cardGLB = isDark
     ? "/assets/lanyard/card-dark.glb"
@@ -131,6 +129,7 @@ function Band({ maxSpeed = 50, minSpeed = 0, isDark }: BandProps) {
   const card = useRef<RapierRigidBody>(null!);
 
   const vec = useRef(new THREE.Vector3());
+  const lerpedMap = useRef(new WeakMap<RapierRigidBody, THREE.Vector3>());
   const ang = useRef(new THREE.Vector3());
   const rot = useRef(new THREE.Quaternion());
   const dir = useRef(new THREE.Vector3());
@@ -157,7 +156,27 @@ function Band({ maxSpeed = 50, minSpeed = 0, isDark }: BandProps) {
       ])
   );
 
+  const [meshLineGeometry] = useState(() => new MeshLineGeometry());
+  const [meshLineMaterial] = useState(() => new MeshLineMaterial({
+    linewidth: 1,
+    // Removed resolution from here
+  }));
+
+  // Add useEffect for meshLineMaterial resolution
+  useEffect(() => {
+    if (meshLineMaterial) {
+      // FIX: Use type assertion to bypass TypeScript error
+      (meshLineMaterial as any).resolution.set(1000, 1000);
+    }
+  }, [meshLineMaterial]);
+
   const [hovered, hover] = useState(false);
+
+  const [lineGeometry] = useState(() => new MeshLineGeometry());
+  const [lineMaterial] = useState(() => new MeshLineMaterial({
+    linewidth: 1,
+    // Removed resolution from here
+  }));
 
   const [isSmall, setIsSmall] = useState<boolean>(() => {
     if (typeof window !== "undefined") {
@@ -165,6 +184,16 @@ function Band({ maxSpeed = 50, minSpeed = 0, isDark }: BandProps) {
     }
     return false;
   });
+
+  useEffect(() => {
+    // FIX: Use type assertion to bypass TypeScript error
+    (lineMaterial as any).color.set("white");
+    (lineMaterial as any).depthTest = false;
+    (lineMaterial as any).map = texture;
+    (lineMaterial as any).useMap = 1;
+    (lineMaterial as any).repeat.set(-4, 1);
+    (lineMaterial as any).resolution.set(isSmall ? 1000 : 1000, isSmall ? 2000 : 1000);
+  }, [texture, isSmall, lineMaterial]);
 
   useEffect(() => {
     const handleResize = (): void => {
@@ -203,12 +232,11 @@ function Band({ maxSpeed = 50, minSpeed = 0, isDark }: BandProps) {
 
   const onPointerUp = useCallback((e: ThreeEvent<PointerEvent>) => {
     e.stopPropagation();
-    const el2 = e.target as Element | null;
-    el2?.releasePointerCapture?.(e.pointerId);
+    const el = e.target as Element | null;
+    el?.releasePointerCapture?.(e.pointerId);
     dragStart.current = null;
     card.current?.setBodyType(RAPIER.RigidBodyType.Dynamic, true);
   }, []);
-
 
   useFrame((state, delta) => {
     if (dragStart.current && card.current) {
@@ -229,15 +257,19 @@ function Band({ maxSpeed = 50, minSpeed = 0, isDark }: BandProps) {
 
     if (fixed.current && card.current) {
       [j1, j2].forEach(ref => {
-        if (!ref.current.lerped)
-          ref.current.lerped = new THREE.Vector3().copy(
-            ref.current.translation()
-          );
+        // Initialize lerped vector if it doesn't exist
+        let lerpedVector = lerpedMap.current.get(ref.current);
+        if (!lerpedVector) {
+          lerpedVector = new THREE.Vector3().copy(ref.current.translation());
+          lerpedMap.current.set(ref.current, lerpedVector);
+        }
+
         const clampedDistance = Math.max(
           0.1,
-          Math.min(1, ref.current.lerped.distanceTo(ref.current.translation()))
+          Math.min(1, lerpedVector.distanceTo(ref.current.translation()))
         );
-        ref.current.lerped.lerp(
+        
+        lerpedVector.lerp(
           ref.current.translation(),
           delta * (minSpeed + clampedDistance * (maxSpeed - minSpeed))
         );
@@ -245,13 +277,13 @@ function Band({ maxSpeed = 50, minSpeed = 0, isDark }: BandProps) {
       
       curve.points[0].copy(card.current.translation());
       curve.points[1].copy(j3.current?.translation() ?? new THREE.Vector3());
-      curve.points[2].copy(j2.current?.lerped ?? new THREE.Vector3());
-      curve.points[3].copy(j1.current?.lerped ?? new THREE.Vector3());
-      band.current.geometry.setPoints(curve.getPoints(32));
+      curve.points[2].copy(lerpedMap.current.get(j2.current) ?? j2.current.translation());
+      curve.points[3].copy(lerpedMap.current.get(j1.current) ?? j1.current.translation());
+      lineGeometry.setFromPoints(curve.getPoints(32));
 
       ang.current.copy(card.current.angvel());
       rot.current.copy(card.current.rotation());
-      card.current.setAngvel({ x: ang.current.x, y: ang.current.y - rot.current.y * 0.25, z: ang.current.z });
+      card.current.setAngvel({ x: ang.current.x, y: ang.current.y - rot.current.y * 0.25, z: ang.current.z }, true);
     }
   });
 
@@ -309,18 +341,10 @@ function Band({ maxSpeed = 50, minSpeed = 0, isDark }: BandProps) {
         </RigidBody>
       </group>
 
-      <mesh ref={band}>
-        <meshLineGeometry />
-        <meshLineMaterial
-          color="white"
-          depthTest={false}
-          resolution={isSmall ? [1000, 2000] : [1000, 1000]}
-          useMap
-          map={texture}
-          repeat={[-4, 1]}
-          lineWidth={1}
-        />
-      </mesh>
+      <mesh ref={band} geometry={lineGeometry} material={lineMaterial} />
     </>
   );
 }
+
+useGLTF.preload("/assets/lanyard/card-dark.glb");
+useGLTF.preload("/assets/lanyard/card.glb");

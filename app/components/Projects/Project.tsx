@@ -1,4 +1,3 @@
-// src/components/Projects/Project.tsx
 import React from "react";
 import SpotlightCard from "../SpotlightCard/SpotlightCard";
 
@@ -12,7 +11,7 @@ type ProjectProps = {
 
 const Project = ({ thumbnail, title, description, languageIcons }: ProjectProps) => {
   return (
-    <SpotlightCard className="custom-spotlight-card h-full flex flex-col" spotlightColor="rgba(0, 229, 255, 0.2)">
+    <SpotlightCard className="custom-spotlight-card h-full flex flex-col" spotlightColorDark="rgba(0, 229, 255, 0.2)">
       <div className="relative w-full aspect-video rounded-lg overflow-hidden pb-4">
         <img
           src={thumbnail}

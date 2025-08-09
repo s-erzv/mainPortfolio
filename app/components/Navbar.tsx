@@ -4,19 +4,20 @@ import React, { useState, useCallback, useEffect } from "react";
 import cn from "classnames";
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { useTheme } from "next-themes"; // Import useTheme
+import { useTheme } from "next-themes";
+import type { Variants } from "framer-motion";
 
-const sidebarVariants = {
-    hidden: { x: "-100%", opacity: 0 },
-    visible: { x: 0, opacity: 1, transition: { duration: 0.3, ease: "easeOut" } },
-    exit: { x: "-100%", opacity: 0, transition: { duration: 0.3, ease: "easeIn" } }
+// Use cubic-bezier arrays for robust easing to avoid type errors
+const sidebarVariants: Variants = {
+    hidden: { x: "100%", opacity: 0 },
+    visible: { x: 0, opacity: 1, transition: { duration: 0.3, ease: [0, 0, 0.58, 1] } }, // Custom cubic-bezier for easeOut
+    exit: { x: "100%", opacity: 0, transition: { duration: 0.3, ease: [0.42, 0, 1, 1] } } // Custom cubic-bezier for easeIn
 };
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [activeSection, setActiveSection] = useState("home");
     
-    // Ganti state dan logika dark mode manual dengan useTheme
     const { resolvedTheme, setTheme } = useTheme();
     const [mounted, setMounted] = useState(false);
 
@@ -95,7 +96,7 @@ const Navbar = () => {
                 animate="visible"
                 exit="exit"
                 variants={sidebarVariants}
-                className="absolute top-20 right-0 w-full bg-primary dark:bg-card rounded-lg shadow-lg p-4 md:hidden"
+                className="absolute top-20 right-0 w-full bg-secondary dark:bg-primary rounded-lg shadow-lg p-4 md:hidden"
             >
                 <ul className="flex flex-col items-start gap-4">
                     {["Home", "Skills", "Projects", "Experience", "Contact"].map((section) => (

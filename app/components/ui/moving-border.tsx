@@ -6,7 +6,7 @@ import {
   useMotionTemplate,
   useMotionValue,
   useTransform,
-} from "motion/react";
+} from "framer-motion";
 import { useRef } from "react";
 import { cn } from "../../lib/utils";
 
@@ -14,7 +14,7 @@ import { cn } from "../../lib/utils";
 export function Button<T extends React.ElementType = "button">({
   borderRadius = "1.75rem",
   children,
-  as: Component = "button",
+  as: Component, // Remove the default value here
   containerClassName,
   borderClassName,
   duration,
@@ -23,23 +23,29 @@ export function Button<T extends React.ElementType = "button">({
 }: {
   borderRadius?: string;
   children: React.ReactNode;
+  // Set the default value in the generic type parameter instead
   as?: T;
   containerClassName?: string;
   borderClassName?: string;
   duration?: number;
   className?: string;
-} & React.ComponentPropsWithoutRef<T>) { // Tipe props disesuaikan dengan elemen T
-  return (
-    <Component
-      className={cn(
+} & React.ComponentPropsWithoutRef<T>) {
+  // Use a fallback for Component if it's undefined
+  const finalComponent = Component || "button";
+
+  return React.createElement(
+    finalComponent,
+    {
+      className: cn(
         "relative overflow-hidden bg-transparent p-[1px] text-xl md:col-span-2",
         containerClassName,
-      )}
-      style={{
+      ),
+      style: {
         borderRadius: borderRadius,
-      }}
-      {...otherProps}
-    >
+      },
+      ...otherProps,
+    },
+    <>
       <div
         className="absolute inset-0"
         style={{ borderRadius: `calc(${borderRadius} * 0.96)` }}
@@ -47,7 +53,7 @@ export function Button<T extends React.ElementType = "button">({
         <MovingBorder duration={duration} rx="30%" ry="30%">
           <div
             className={cn(
-              "h-20 w-20 opacity-[0.8]", 
+              "h-20 w-20 opacity-[0.8]",
               "bg-[radial-gradient(#3641C9_60%,transparent_60%)] dark:bg-[radial-gradient(#CF97C6_40%,transparent_60%)]",
               borderClassName
             )}
@@ -58,7 +64,7 @@ export function Button<T extends React.ElementType = "button">({
       <div
         className={cn(
           "relative flex h-full w-full items-center justify-center border text-sm antialiased backdrop-blur-xl",
-          "border-slate-300 bg-[#FCCA59]/[0.1] text-slate-900", 
+          "border-slate-300 bg-[#FCCA59]/[0.1] text-slate-900",
           "dark:border-slate-800 dark:bg-slate-900/[0.8] dark:text-white",
           className,
         )}
@@ -68,7 +74,7 @@ export function Button<T extends React.ElementType = "button">({
       >
         {children}
       </div>
-    </Component>
+    </>
   );
 }
 
@@ -83,8 +89,8 @@ export const MovingBorder = ({
   duration?: number;
   rx?: string;
   ry?: string;
-} & React.ComponentPropsWithoutRef<"svg">) => { // Menggunakan tipe props yang spesifik
-  const pathRef = useRef<SVGRectElement>(null); // Menggunakan tipe yang tepat untuk elemen SVG
+} & React.ComponentPropsWithoutRef<"svg">) => {
+  const pathRef = useRef<SVGRectElement>(null);
   const progress = useMotionValue<number>(0);
 
   useAnimationFrame((time) => {

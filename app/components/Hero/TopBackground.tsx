@@ -9,7 +9,7 @@ const TopBackground = () => {
           <div className="circle-icon top-[-30px] left-[20px] md:top-48 md:left-[520px] animate-float delay-0">
             <img src="/rocket_icon.svg" alt="Rocket Icon" width={23} height={23} />
           </div>
-          <div className="circle-icon top-[370px] left-[20px] md:top-20 md:left-0 animate-wiggle delay-[200ms]">
+          <div className="circle-icon top-[100px] right-[20px] md:top-20 md:left-0 animate-wiggle delay-[200ms]">
             <img src="/bracket_icon.svg" alt="Bracket Icon" width={23} height={23} />
           </div>
           <div className="hidden md:circle-icon top-80 left-0 md:top-[500px] md:right-[450px] animate-float delay-[400ms]">

@@ -8,11 +8,22 @@ import SectionHeader from "../Section/SectionHeader";
 import Project from "./Project";
 import Modal from "../Modal"; // Import komponen Modal
 
+// Define the type for a project object
+type ProjectType = {
+  thumbnail: string;
+  title: string;
+  link: { url: string; label: string };
+  description: string;
+  languageIcons: string[];
+};
+
 const Projects = () => {
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, align: "start" });
   const [canScrollPrev, setCanScrollPrev] = useState(false);
   const [canScrollNext, setCanScrollNext] = useState(false);
-  const [selectedProject, setSelectedProject] = useState(null); // State untuk proyek yang dipilih
+  
+  // FIX: Explicitly type the state for the selected project
+  const [selectedProject, setSelectedProject] = useState<ProjectType | null>(null);
 
   const updateButtons = useCallback(() => {
     if (!emblaApi) return;
@@ -20,7 +31,8 @@ const Projects = () => {
     setCanScrollNext(emblaApi.canScrollNext());
   }, [emblaApi]);
 
-  const openModal = useCallback((project) => {
+  // FIX: Explicitly type the 'project' parameter
+  const openModal = useCallback((project: ProjectType) => {
     setSelectedProject(project);
   }, []);
 
