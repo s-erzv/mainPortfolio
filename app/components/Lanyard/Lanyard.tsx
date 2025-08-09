@@ -1,5 +1,6 @@
 "use client";
 import type { GLTF } from "three-stdlib";
+import { RigidBodyType } from "@react-three/rapier";
 
 import { useEffect, useRef, useState, RefObject, useCallback } from "react";
 import { Canvas, extend, useFrame, ThreeEvent } from "@react-three/fiber";
@@ -198,14 +199,14 @@ function Band({ maxSpeed = 50, minSpeed = 0, isDark }: BandProps) {
     dragStart.current = new THREE.Vector3()
       .copy(e.point)
       .sub(card.current?.translation() ?? new THREE.Vector3());
-    card.current?.setNextKinematic(true);
+    card.current?.setBodyType(RigidBodyType.KinematicPositionBased, true);
   }, []);
 
   const onPointerUp = useCallback((e: ThreeEvent<PointerEvent>) => {
     e.stopPropagation();
     e.target.releasePointerCapture(e.pointerId);
     dragStart.current = null;
-    card.current?.setNextKinematic(false);
+    card.current?.setBodyType(RigidBodyType.Dynamic, true);
   }, []);
 
 
