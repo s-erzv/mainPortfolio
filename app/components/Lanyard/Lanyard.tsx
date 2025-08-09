@@ -1,7 +1,6 @@
 "use client";
 import type { GLTF } from "three-stdlib";
-import { RigidBodyType } from "@react-three/rapier";
-
+import * as RAPIER from "@dimforge/rapier3d-compat";
 import { useEffect, useRef, useState, RefObject, useCallback } from "react";
 import { Canvas, extend, useFrame, ThreeEvent } from "@react-three/fiber";
 import {
@@ -199,14 +198,14 @@ function Band({ maxSpeed = 50, minSpeed = 0, isDark }: BandProps) {
     dragStart.current = new THREE.Vector3()
       .copy(e.point)
       .sub(card.current?.translation() ?? new THREE.Vector3());
-    card.current?.setBodyType(RigidBodyType.KinematicPositionBased, true);
+    card.current?.setBodyType(RAPIER.RigidBodyType.KinematicPositionBased, true);
   }, []);
 
   const onPointerUp = useCallback((e: ThreeEvent<PointerEvent>) => {
     e.stopPropagation();
     e.target.releasePointerCapture(e.pointerId);
     dragStart.current = null;
-    card.current?.setBodyType(RigidBodyType.Dynamic, true);
+    card.current?.setBodyType(RAPIER.RigidBodyType.Dynamic, true);
   }, []);
 
 
