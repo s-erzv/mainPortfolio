@@ -193,7 +193,8 @@ function Band({ maxSpeed = 50, minSpeed = 0, isDark }: BandProps) {
 
   const onPointerDown = useCallback((e: ThreeEvent<PointerEvent>) => {
     e.stopPropagation();
-    e.target.setPointerCapture(e.pointerId);
+    const el = e.target as Element | null;
+    el?.setPointerCapture?.(e.pointerId);
     dragStart.current = new THREE.Vector3()
       .copy(e.point)
       .sub(card.current?.translation() ?? new THREE.Vector3());
